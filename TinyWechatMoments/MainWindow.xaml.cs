@@ -1,4 +1,5 @@
-﻿using HandyControl.Controls;
+﻿using Asjc.JsonConfig;
+using HandyControl.Controls;
 
 namespace TinyWechatMoments
 {
@@ -10,6 +11,7 @@ namespace TinyWechatMoments
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = JsonConfig.Load<Data>();
         }
     }
 }

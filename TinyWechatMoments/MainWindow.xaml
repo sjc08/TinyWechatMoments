@@ -10,12 +10,51 @@
                Background="{DynamicResource RegionBrush}"
                ActiveGlowColor="{DynamicResource PrimaryColor}"
                Title="TinyWechatMoments" Height="450" Width="800">
+    <Window.Resources>
+        <local:ThumbnailConverter x:Key="ThumbnailConverter"/>
+    </Window.Resources>
     <TabControl>
         <TabItem Header="👀 浏览">
-            
+            <hc:ScrollViewer IsInertiaEnabled="True">
+                <ItemsControl ItemsSource="{Binding Moments}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="5">
+                                <TextBlock Text="{Binding Friend}" Margin="5" FontSize="16" FontWeight="Bold" Foreground="{DynamicResource PrimaryBrush}"/>
+                                <TextBlock Text="{Binding Text}" Margin="5"/>
+                                <ItemsControl ItemsSource="{Binding Medias}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Image Source="{Binding Converter={StaticResource ThumbnailConverter}}" Margin="5" Width="150" Height="150" Stretch="UniformToFill"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                                <Expander Header="评论" Margin="5" IsExpanded="True">
+                                    <ItemsControl ItemsSource="{Binding Comments}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Margin="5">
+                                                    <Run FontWeight="Bold" Text="{Binding Friend}"/>
+                                                    <Run Text="{Binding Text}"/>
+                                                </TextBlock>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </Expander>
+                                <Separator Margin="5"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </hc:ScrollViewer>
         </TabItem>
         <TabItem Header="📋 管理">
-            
+
         </TabItem>
     </TabControl>
 </hc:GlowWindow>
