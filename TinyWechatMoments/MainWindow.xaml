@@ -34,11 +34,27 @@
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
+                                <TextBlock Text="{Binding Time, StringFormat=\{0:g\}}" Margin="5" Foreground="{DynamicResource SecondaryTextBrush}"/>
+                                <DockPanel>
+                                    <Path ToolTip="点赞者" Data="{StaticResource StarGeometry}" Stroke="{DynamicResource PrimaryBrush}" Margin="5" Width="15" Stretch="Uniform" VerticalAlignment="Top" DockPanel.Dock="Left"/>
+                                    <ItemsControl ItemsSource="{Binding Likers}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding}" Margin="5"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </DockPanel>
                                 <Expander Header="评论" Margin="5" IsExpanded="True">
                                     <ItemsControl ItemsSource="{Binding Comments}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <TextBlock Margin="5">
+                                                <TextBlock Margin="5" ToolTip="{Binding Time, StringFormat=\{0:g\}}">
                                                     <Run FontWeight="Bold" Text="{Binding Friend}"/>
                                                     <Run Text="{Binding Text}"/>
                                                 </TextBlock>

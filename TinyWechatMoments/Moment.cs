@@ -10,6 +10,8 @@
 
         public List<string>? Medias { get; set; }
 
+        public List<string>? Likers { get; set; }
+
         public List<Comment>? Comments { get; set; }
     }
 }
