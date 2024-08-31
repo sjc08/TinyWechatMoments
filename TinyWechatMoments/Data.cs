@@ -1,4 +1,5 @@
 ﻿using Asjc.JsonConfig;
+using System.Text.Json.Serialization;
 
 namespace TinyWechatMoments
 {
@@ -30,5 +31,23 @@ namespace TinyWechatMoments
                 ]
             }
         ];
+
+
+        [JsonIgnore]
+        public string Identity { get; set; } = "我";
+
+        [JsonIgnore]
+        public bool ManualTime { get; set; }
+
+        private DateTime currentTime;
+        [JsonIgnore]
+        public DateTime CurrentTime 
+        {
+            get => ManualTime ? currentTime : DateTime.Now;
+            set => currentTime = value;
+        }
+
+        [JsonIgnore]
+        public List<string> FriendList => Moments.Select(m => m.Friend).Distinct().ToList();
     }
 }
