@@ -11,10 +11,10 @@
                ActiveGlowColor="{DynamicResource PrimaryColor}"
                Title="TinyWechatMoments" Height="450" Width="800">
     <Window.Resources>
+        <local:MainViewModel x:Key="MainViewModel"/>
         <local:ThumbnailConverter x:Key="ThumbnailConverter"/>
-        <local:DelegateCommand x:Key="AddCommentCommand" ExecuteDelegate="AddComment"/>
     </Window.Resources>
-    <DockPanel>
+    <DockPanel DataContext="{StaticResource MainViewModel}">
         <Expander Header="选项" ExpandDirection="Right" Background="Transparent" BorderBrush="{x:Null}">
             <StackPanel Margin="5">
                 <hc:ComboBox hc:InfoElement.Title="身份" Text="{Binding Identity}" ItemsSource="{Binding FriendList}" Margin="5" IsEditable="True" Style="{StaticResource ComboBoxExtend}"/>
@@ -34,16 +34,16 @@
             </StackPanel>
         </Expander>
         <hc:ScrollViewer IsInertiaEnabled="True">
-            <ItemsControl ItemsSource="{Binding Moments}">
+            <ItemsControl ItemsSource="{Binding Data.Moments}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="5">
                             <StackPanel.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem Header="评论" Command="{StaticResource AddCommentCommand}" CommandParameter="{Binding}"/>
+                                    <MenuItem Header="评论" Command="{Binding AddCommentCommand, Source={StaticResource MainViewModel}}" CommandParameter="{Binding}"/>
                                 </ContextMenu>
                             </StackPanel.ContextMenu>
-                            <TextBlock Text="{Binding Friend}" Margin="5" FontSize="16" FontWeight="Bold" Foreground="{DynamicResource PrimaryBrush}"/>
+                            <Label Content="{Binding Friend}" Margin="5" FontWeight="Bold" HorizontalAlignment="Left" Style="{StaticResource LabelPrimary}"/>
                             <TextBlock Text="{Binding Text}" Margin="5"/>
                             <ItemsControl ItemsSource="{Binding Medias}">
                                 <ItemsControl.ItemsPanel>
