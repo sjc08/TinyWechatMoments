@@ -12,6 +12,7 @@
                Title="TinyWechatMoments" Height="450" Width="800">
     <Window.Resources>
         <local:ThumbnailConverter x:Key="ThumbnailConverter"/>
+        <local:DelegateCommand x:Key="AddCommentCommand" ExecuteDelegate="AddComment"/>
     </Window.Resources>
     <DockPanel>
         <Expander Header="选项" ExpandDirection="Right" Background="Transparent" BorderBrush="{x:Null}">
@@ -29,6 +30,7 @@
                         </Style>
                     </hc:DateTimePicker.Style>
                 </hc:DateTimePicker>
+                <Button Content="发布" hc:IconElement.Geometry="{StaticResource AddGeometry}" Style="{StaticResource ButtonPrimary}" Margin="5" HorizontalAlignment="Stretch"/>
             </StackPanel>
         </Expander>
         <hc:ScrollViewer IsInertiaEnabled="True">
@@ -36,6 +38,11 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="5">
+                            <StackPanel.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="评论" Command="{StaticResource AddCommentCommand}" CommandParameter="{Binding}"/>
+                                </ContextMenu>
+                            </StackPanel.ContextMenu>
                             <TextBlock Text="{Binding Friend}" Margin="5" FontSize="16" FontWeight="Bold" Foreground="{DynamicResource PrimaryBrush}"/>
                             <TextBlock Text="{Binding Text}" Margin="5"/>
                             <ItemsControl ItemsSource="{Binding Medias}">
