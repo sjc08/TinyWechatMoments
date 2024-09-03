@@ -1,17 +1,24 @@
-﻿namespace TinyWechatMoments
-{
-    public class Moment
-    {
-        public DateTime Time { get; set; } = DateTime.Now;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.Collections.ObjectModel;
 
-        public string Friend { get; set; } = "我";
+namespace TinyWechatMoments
+{
+    [ObservableObject]
+    public partial class Moment
+    {
+        public DateTime? Time { get; set; }
+
+        public string? Friend { get; set; }
 
         public string? Text { get; set; }
 
-        public List<string>? Medias { get; set; }
+        [ObservableProperty]
+        public ObservableCollection<string>? medias;
 
-        public List<string>? Likers { get; set; }
+        [ObservableProperty]
+        public ObservableCollection<string>? likers;
 
-        public List<Comment>? Comments { get; set; }
+        [ObservableProperty]
+        public ObservableCollection<Comment>? comments;
     }
 }

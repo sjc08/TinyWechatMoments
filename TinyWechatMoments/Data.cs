@@ -1,10 +1,14 @@
 ﻿using Asjc.JsonConfig;
+using CommunityToolkit.Mvvm.ComponentModel;
+using System.Collections.ObjectModel;
 
 namespace TinyWechatMoments
 {
-    public class Data : JsonConfig
+    [ObservableObject]
+    public partial class Data : JsonConfig
     {
-        public List<Moment> Moments { get; set; } =
+        [ObservableProperty]
+        public ObservableCollection<Moment> moments =
         [
             new()
             {
