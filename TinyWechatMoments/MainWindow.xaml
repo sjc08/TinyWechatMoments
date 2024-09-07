@@ -30,7 +30,8 @@
                         </Style>
                     </hc:DateTimePicker.Style>
                 </hc:DateTimePicker>
-                <Button Content="发布" hc:IconElement.Geometry="{StaticResource AddGeometry}" Style="{StaticResource ButtonPrimary}" Margin="5" HorizontalAlignment="Stretch"/>
+                <Button Content="发布" hc:IconElement.Geometry="{StaticResource AddGeometry}" Margin="5" HorizontalAlignment="Stretch" Style="{StaticResource ButtonPrimary}"/>
+                <Button Content="重载" hc:IconElement.Geometry="{StaticResource RotateRightGeometry}" Command="{Binding LoadCommand}" Margin="5" HorizontalAlignment="Stretch" Style="{StaticResource ButtonSuccess}"/>
             </StackPanel>
         </Expander>
         <hc:ScrollViewer IsInertiaEnabled="True">

@@ -11,8 +11,11 @@
         <local:TextDialogViewModel/>
     </Border.DataContext>
     <StackPanel Margin="10" Width="300">
-        <TextBlock Text="{Binding Message}" Margin="5"/>
-        <TextBox Text="{Binding Result}" Margin="5" AcceptsReturn="True"/>
-        <Button Content="确定" Margin="5" HorizontalAlignment="Stretch" Style="{StaticResource ButtonPrimary}" Command="hc:ControlCommands.Close"/>
+        <TextBlock Text="{Binding Message}" Margin="5" Style="{StaticResource TextBlockSubTitleBold}"/>
+        <TextBox Text="{Binding Text}" Margin="5" AcceptsReturn="True"/>
+        <WrapPanel HorizontalAlignment="Center">
+            <Button Content="确定" Command="{Binding ConfirmCommand}" Margin="5" Style="{StaticResource ButtonPrimary}"/>
+            <Button Content="取消" Command="{Binding CancelCommand}" Margin="5"/>
+        </WrapPanel>
     </StackPanel>
 </Border>
