@@ -18,8 +18,12 @@
         <Expander Header="选项" ExpandDirection="Right" Background="Transparent" BorderBrush="{x:Null}">
             <StackPanel Margin="5">
                 <hc:ComboBox hc:InfoElement.Title="身份" Text="{Binding Identity}" ItemsSource="{Binding FriendList}" Margin="5" IsEditable="True" Style="{StaticResource ComboBoxExtend}"/>
-                <ToggleButton Content="指定时间" IsChecked="{Binding ManualTime}" hc:IconElement.Geometry="{StaticResource CalendarGeometry}" Margin="5" HorizontalAlignment="Stretch"/>
-                <hc:DateTimePicker hc:InfoElement.Title="时间" SelectedDateTime="{Binding CurrentTime}" Margin="5">
+                <hc:ButtonGroup Margin="5" Style="{StaticResource ButtonGroupSolid}">
+                    <RadioButton Content="当前时间" IsChecked="{Binding AutoTime}"/>
+                    <RadioButton Content="指定时间" IsChecked="{Binding ManualTime}"/>
+                    <RadioButton Content="无时间"/>
+                </hc:ButtonGroup>
+                <hc:DateTimePicker hc:InfoElement.Title="时间" SelectedDateTime="{Binding Time}" Margin="5">
                     <hc:DateTimePicker.Style>
                         <Style TargetType="hc:DateTimePicker" BasedOn="{StaticResource DateTimePickerExtend}">
                             <Style.Triggers>
@@ -54,7 +58,11 @@
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <Image Source="{Binding Converter={StaticResource ThumbnailConverter}}" Margin="5" Width="150" Height="150" Stretch="UniformToFill"/>
+                                        <Image Source="{Binding Converter={StaticResource ThumbnailConverter}}" Margin="5" Width="150" Height="150" Stretch="UniformToFill">
+                                            <Image.InputBindings>
+                                                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding OpenFileCommand, Source={StaticResource MainViewModel}}" CommandParameter="{Binding}"/>
+                                            </Image.InputBindings>
+                                        </Image>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>

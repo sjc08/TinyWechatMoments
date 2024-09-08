@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using HandyControl.Controls;
 using HandyControl.Tools.Extension;
+using System.Diagnostics;
 using System.Text.Json.Serialization;
 
 namespace TinyWechatMoments
@@ -22,13 +23,16 @@ namespace TinyWechatMoments
         public string Identity { get; set; } = "我";
 
         [ObservableProperty]
-        private bool manualTime = false;
+        private bool autoTime = true;
 
-        private DateTime currentTime;
-        public DateTime CurrentTime
+        [ObservableProperty]
+        private bool manualTime;
+
+        private DateTime? time;
+        public DateTime? Time
         {
-            get => ManualTime ? currentTime : DateTime.Now;
-            set => currentTime = value;
+            get => AutoTime ? DateTime.Now : ManualTime ? time : null;
+            set => time = value;
         }
 
         [RelayCommand]
@@ -39,7 +43,7 @@ namespace TinyWechatMoments
                                    .GetResultAsync<string?>();
             if (!string.IsNullOrEmpty(text))
             {
-                moment.Comments.Add(new() { Time = CurrentTime, Friend = Identity, Text = text });
+                moment.Comments.Add(new() { Time = Time, Friend = Identity, Text = text });
                 Data.Save();
                 Growl.Success("评论成功。");
             }
@@ -53,6 +57,12 @@ namespace TinyWechatMoments
         private void Load()
         {
             Data = Tryer.Try(JsonConfig.Load<Data>, e => Growl.Error(e.Message));
+        }
+
+        [RelayCommand]
+        private void OpenFile(string path)
+        {
+            Process.Start(new ProcessStartInfo(path) { UseShellExecute = true });
         }
 
         public List<string> FriendList => Data.Moments.Select(m => m.Friend).Distinct().ToList();
