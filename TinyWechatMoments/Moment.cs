@@ -3,12 +3,11 @@ using System.Collections.ObjectModel;
 
 namespace TinyWechatMoments
 {
-    [ObservableObject]
-    public partial class Moment
+    public partial class Moment : ObservableObject
     {
         public DateTime? Time { get; set; }
 
-        public string? Friend { get; set; }
+        public required string Friend { get; set; }
 
         public string? Text { get; set; }
 

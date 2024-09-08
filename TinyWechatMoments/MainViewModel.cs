@@ -43,6 +43,7 @@ namespace TinyWechatMoments
                                    .GetResultAsync<string?>();
             if (!string.IsNullOrEmpty(text))
             {
+                moment.Comments ??= [];
                 moment.Comments.Add(new() { Time = Time, Friend = Identity, Text = text });
                 Data.Save();
                 Growl.Success("评论成功。");

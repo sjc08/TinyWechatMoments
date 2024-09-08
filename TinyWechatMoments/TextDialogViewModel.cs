@@ -13,14 +13,14 @@ namespace TinyWechatMoments
         private string? text;
 
         [RelayCommand]
-        private async Task Confirm()
+        private void Confirm()
         {
-            Result = text;
+            Result = Text;
             CloseAction();
         }
 
         [RelayCommand]
-        private async Task Cancel()
+        private void Cancel()
         {
             CloseAction();
         }

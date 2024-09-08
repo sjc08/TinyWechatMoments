@@ -12,6 +12,7 @@ namespace TinyWechatMoments
         [
             new()
             {
+                Friend = "我",
                 Text = "这是范例。",
                 Medias =
                 [
