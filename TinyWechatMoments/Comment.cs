@@ -1,11 +1,14 @@
-﻿namespace TinyWechatMoments
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace TinyWechatMoments
 {
-    public class Comment
+    public partial class Comment : ObservableObject
     {
-        public DateTime? Time { get; set; }
+        public required string Friend { get; init; }
 
-        public required string Friend { get; set; }
+        public DateTime? Time { get; init; }
 
-        public string? Text { get; set; }
+        [ObservableProperty]
+        public string? text;
     }
 }

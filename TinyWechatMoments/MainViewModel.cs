@@ -11,14 +11,14 @@ namespace TinyWechatMoments
 {
     public partial class MainViewModel : ObservableObject
     {
-        [ObservableProperty]
-        private Data data;
-
         public MainViewModel()
         {
             JsonConfig.GlobalOptions.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
             Load();
         }
+
+        [ObservableProperty]
+        private Data? data;
 
         public string Identity { get; set; } = "我";
 
@@ -35,6 +35,8 @@ namespace TinyWechatMoments
             set => time = value;
         }
 
+        public List<string>? FriendList => Data?.Moments.Select(m => m.Friend).Distinct().ToList();
+
         [RelayCommand]
         private async Task AddComment(Moment moment)
         {
@@ -45,7 +47,6 @@ namespace TinyWechatMoments
             {
                 moment.Comments ??= [];
                 moment.Comments.Add(new() { Time = Time, Friend = Identity, Text = text });
-                Data.Save();
                 Growl.Success("评论成功。");
             }
             else
@@ -55,9 +56,24 @@ namespace TinyWechatMoments
         }
 
         [RelayCommand]
+        private void Post()
+        {
+            Moment moment = new() { Friend = Identity, Time = Time };
+            Data?.Moments.Add(moment);
+            PublishWindow window = new() { DataContext = moment };
+            window.Show();
+        }
+
+        [RelayCommand]
         private void Load()
         {
             Data = Tryer.Try(JsonConfig.Load<Data>, e => Growl.Error(e.Message));
+        }
+
+        [RelayCommand]
+        private void Save()
+        {
+            Data.Save();
         }
 
         [RelayCommand]
@@ -65,7 +81,5 @@ namespace TinyWechatMoments
         {
             Process.Start(new ProcessStartInfo(path) { UseShellExecute = true });
         }
-
-        public List<string> FriendList => Data.Moments.Select(m => m.Friend).Distinct().ToList();
     }
 }

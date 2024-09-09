@@ -12,7 +12,7 @@
     </Border.DataContext>
     <StackPanel Margin="10" Width="300">
         <TextBlock Text="{Binding Message}" Margin="5" Style="{StaticResource TextBlockSubTitleBold}"/>
-        <TextBox Text="{Binding Text}" Margin="5" AcceptsReturn="True"/>
+        <TextBox Text="{Binding Text}" Margin="5" AcceptsReturn="True" TextWrapping="Wrap"/>
         <WrapPanel HorizontalAlignment="Center">
             <Button Content="确定" Command="{Binding ConfirmCommand}" Margin="5" Style="{StaticResource ButtonPrimary}"/>
             <Button Content="取消" Command="{Binding CancelCommand}" Margin="5"/>

@@ -5,11 +5,12 @@ namespace TinyWechatMoments
 {
     public partial class Moment : ObservableObject
     {
-        public DateTime? Time { get; set; }
+        public required string Friend { get; init; }
 
-        public required string Friend { get; set; }
+        public DateTime? Time { get; init; }
 
-        public string? Text { get; set; }
+        [ObservableProperty]
+        public string? text;
 
         [ObservableProperty]
         public ObservableCollection<string>? medias;
