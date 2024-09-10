@@ -8,6 +8,10 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <hc:Theme SyncWithSystem="True"/>
+                <ResourceDictionary>
+                    <local:MainViewModel x:Key="MainViewModel"/>
+                    <local:ThumbnailConverter x:Key="ThumbnailConverter"/>
+                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
