@@ -6,6 +6,7 @@
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                xmlns:hc="https://handyorg.github.io/handycontrol"
                xmlns:local="clr-namespace:TinyWechatMoments"
+               d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
                mc:Ignorable="d"
                Style="{StaticResource WindowGlow}"
                Background="{DynamicResource RegionBrush}"
@@ -14,16 +15,16 @@
                DataContext="{StaticResource MainViewModel}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closing">
-            <i:EventTrigger.Actions>
-                <i:InvokeCommandAction Command="{Binding SaveCommand}"/>
-            </i:EventTrigger.Actions>
+            <i:InvokeCommandAction Command="{Binding SaveCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <DockPanel>
         <Expander Header="选项" ExpandDirection="Right" Background="Transparent" BorderBrush="{x:Null}">
             <StackPanel Margin="5">
-                <Button Content="发布" hc:IconElement.Geometry="{StaticResource AddGeometry}" Command="{Binding PostCommand}" Margin="5" HorizontalAlignment="Stretch" Style="{StaticResource ButtonSuccess}"/>
-                <Button Content="重载" hc:IconElement.Geometry="{StaticResource RotateRightGeometry}" Command="{Binding LoadCommand}" Margin="5" HorizontalAlignment="Stretch" Style="{StaticResource ButtonWarning}"/>
+                <hc:ElementGroup Margin="5">
+                    <Button Content="发布" hc:IconElement.Geometry="{StaticResource AddGeometry}" Command="{Binding PostCommand}" HorizontalAlignment="Stretch" Style="{StaticResource ButtonSuccess}"/>
+                    <Button Content="重载" hc:IconElement.Geometry="{StaticResource RotateRightGeometry}" Command="{Binding LoadCommand}" HorizontalAlignment="Stretch" Style="{StaticResource ButtonWarning}"/>
+                </hc:ElementGroup>
                 <hc:ComboBox hc:InfoElement.Title="身份" Text="{Binding Identity}" ItemsSource="{Binding FriendList}" Margin="5" IsEditable="True" Style="{StaticResource ComboBoxExtend}"/>
                 <hc:ButtonGroup Margin="5" Style="{StaticResource ButtonGroupSolid}">
                     <RadioButton Content="当前时间" IsChecked="{Binding AutoTime}"/>
@@ -50,7 +51,8 @@
                         <StackPanel Margin="5">
                             <StackPanel.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem Header="评论" Command="{Binding AddCommentCommand, Source={StaticResource MainViewModel}}" CommandParameter="{Binding}"/>
+                                    <MenuItem Header="编辑" Command="{Binding EditCommand, Source={StaticResource MainViewModel}}" CommandParameter="{Binding}"/>
+                                    <MenuItem Header="评论" Command="{Binding CommentCommand, Source={StaticResource MainViewModel}}" CommandParameter="{Binding}"/>
                                 </ContextMenu>
                             </StackPanel.ContextMenu>
                             <Label Content="{Binding Friend}" Margin="5" FontWeight="Bold" HorizontalAlignment="Left" Style="{StaticResource LabelPrimary}"/>
@@ -65,7 +67,7 @@
                                     <DataTemplate>
                                         <Image Source="{Binding Converter={StaticResource ThumbnailConverter}}" Margin="5" Width="150" Height="150" Stretch="UniformToFill">
                                             <Image.InputBindings>
-                                                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding OpenFileCommand, Source={StaticResource MainViewModel}}" CommandParameter="{Binding}"/>
+                                                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding OpenCommand, Source={StaticResource MainViewModel}}" CommandParameter="{Binding}"/>
                                             </Image.InputBindings>
                                         </Image>
                                     </DataTemplate>

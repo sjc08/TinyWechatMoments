@@ -16,13 +16,13 @@ namespace TinyWechatMoments
         private void Confirm()
         {
             Result = Text;
-            CloseAction();
+            CloseAction!();
         }
 
         [RelayCommand]
         private void Cancel()
         {
-            CloseAction();
+            CloseAction!();
         }
 
         public string? Result { get; set; }

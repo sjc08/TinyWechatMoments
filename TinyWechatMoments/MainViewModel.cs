@@ -38,7 +38,13 @@ namespace TinyWechatMoments
         public List<string>? FriendList => Data?.Moments.Select(m => m.Friend).Distinct().ToList();
 
         [RelayCommand]
-        private async Task AddComment(Moment moment)
+        private void Edit(Moment moment)
+        {
+            new EditWindow(moment).Show();
+        }
+
+        [RelayCommand]
+        private async Task Comment(Moment moment)
         {
             var text = await Dialog.Show<TextDialog>()
                                    .Initialize<TextDialogViewModel>(vm => vm.Message = $"以 {Identity} 的身份进行评论")
@@ -60,8 +66,13 @@ namespace TinyWechatMoments
         {
             Moment moment = new() { Friend = Identity, Time = Time };
             Data?.Moments.Add(moment);
-            PublishWindow window = new() { DataContext = moment };
-            window.Show();
+            Edit(moment);
+        }
+
+        [RelayCommand]
+        private void Open(string path)
+        {
+            Process.Start(new ProcessStartInfo(path) { UseShellExecute = true });
         }
 
         [RelayCommand]
@@ -73,13 +84,7 @@ namespace TinyWechatMoments
         [RelayCommand]
         private void Save()
         {
-            Data.Save();
-        }
-
-        [RelayCommand]
-        private void OpenFile(string path)
-        {
-            Process.Start(new ProcessStartInfo(path) { UseShellExecute = true });
+            Data?.Save();
         }
     }
 }

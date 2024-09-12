@@ -16,7 +16,7 @@ namespace TinyWechatMoments
         {
             return Tryer.Try(() =>
             {
-                var hBitmap = GetHThumbnail(value.ToString());
+                var hBitmap = GetHThumbnail(value.ToString()!);
                 var source = Tryer.Try(() => Imaging.CreateBitmapSourceFromHBitmap(
                     hBitmap,
                     IntPtr.Zero,
@@ -24,7 +24,7 @@ namespace TinyWechatMoments
                     BitmapSizeOptions.FromEmptyOptions()));
                 DeleteObject(hBitmap);
                 return source;
-            }, e => Growl.Error(e.Message));
+            }, e => Growl.Error(e.Message))!;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
