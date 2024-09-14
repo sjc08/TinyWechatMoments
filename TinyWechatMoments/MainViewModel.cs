@@ -4,8 +4,11 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using HandyControl.Controls;
 using HandyControl.Tools.Extension;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Text.Json.Serialization;
+using System.Windows;
+using HC = HandyControl.Controls;
 
 namespace TinyWechatMoments
 {
@@ -36,6 +39,8 @@ namespace TinyWechatMoments
         }
 
         public List<string>? FriendList => Data?.Moments.Select(m => m.Friend).Distinct().ToList();
+
+        public bool ReadOnly { get; set; }
 
         [RelayCommand]
         private void Edit(Moment moment)
@@ -78,13 +83,26 @@ namespace TinyWechatMoments
         [RelayCommand]
         private void Load()
         {
-            Data = Tryer.Try(JsonConfig.Load<Data>, e => Growl.Error(e.Message));
+            Data = Tryer.Try(JsonConfig.Load<Data>, e => HC.Growl.Error(e.Message));
         }
 
         [RelayCommand]
-        private void Save()
+        private void Closing(CancelEventArgs e)
         {
-            Data?.Save();
+            if (ReadOnly)
+            {
+                if (Tryer.Try(JsonConfig.Load<Data>)?.Json != Data?.Json)
+                {
+                    if (HC.MessageBox.Ask("此操作会放弃所有未保存的更改，确定要继续吗？") != MessageBoxResult.OK)
+                    {
+                        e.Cancel = true;
+                    }
+                }
+            }
+            else
+            {
+                Data?.Save();
+            }
         }
     }
 }

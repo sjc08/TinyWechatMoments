@@ -15,7 +15,7 @@
                DataContext="{StaticResource MainViewModel}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closing">
-            <i:InvokeCommandAction Command="{Binding SaveCommand}"/>
+            <i:InvokeCommandAction Command="{Binding ClosingCommand}" PassEventArgsToCommand="True"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <DockPanel>
@@ -42,6 +42,7 @@
                         </Style>
                     </hc:DateTimePicker.Style>
                 </hc:DateTimePicker>
+                <CheckBox Content="阅读模式" IsChecked="{Binding ReadOnly}" Margin="5"/>
             </StackPanel>
         </Expander>
         <hc:ScrollViewer IsInertiaEnabled="True">
@@ -89,7 +90,13 @@
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
                             </DockPanel>
-                            <Expander Header="评论" Margin="5" IsExpanded="True">
+                            <Expander Margin="5" IsExpanded="True">
+                                <Expander.Header>
+                                    <TextBlock x:Name="textBlock">
+                                        <Run Text="评论"/>
+                                        <Run Text="{Binding Comments.Count, Mode=OneWay}"/>
+                                    </TextBlock>
+                                </Expander.Header>
                                 <Border BorderThickness="1,0,1,1" BorderBrush="{DynamicResource BorderBrush}" CornerRadius="0,0,4,4">
                                     <ItemsControl ItemsSource="{Binding Comments}">
                                         <ItemsControl.ItemTemplate>
