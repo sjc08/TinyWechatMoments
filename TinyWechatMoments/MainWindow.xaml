@@ -91,8 +91,15 @@
                         </ItemsControl>
                         <TextBlock Text="{Binding Time, StringFormat=\{0:g\}}" Margin="5" Foreground="{DynamicResource SecondaryTextBrush}"/>
                         <DockPanel>
-                            <Path ToolTip="点赞者" Data="{StaticResource StarGeometry}" Stroke="{DynamicResource PrimaryBrush}" Margin="5" Width="15" Stretch="Uniform" VerticalAlignment="Top" DockPanel.Dock="Left"/>
-                            <ItemsControl ItemsSource="{Binding Likers}">
+                            <Button hc:IconElement.Geometry="{StaticResource ThumbUpGeometry}" Style="{StaticResource ButtonIcon}" Padding="5" ToolTip="点赞" VerticalAlignment="Top"
+                                    Command="{Binding LikeCommand, Source={StaticResource MainViewModel}}" CommandParameter="{Binding}">
+                                <hc:FloatingBlock.ContentTemplate>
+                                    <DataTemplate>
+                                        <Path Data="{StaticResource ThumbUpGeometry}" Stretch="Uniform" Fill="{DynamicResource DangerBrush}" Width="15"/>
+                                    </DataTemplate>
+                                </hc:FloatingBlock.ContentTemplate>
+                            </Button>
+                            <ItemsControl ItemsSource="{Binding Likers}" VerticalAlignment="Center">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <WrapPanel/>

@@ -67,6 +67,14 @@ namespace TinyWechatMoments
         }
 
         [RelayCommand]
+        private void Like(Moment moment)
+        {
+            moment.Likers ??= [];
+            if (!moment.Likers.Contains(Identity))
+                moment.Likers.Add(Identity);
+        }
+
+        [RelayCommand]
         private void Post()
         {
             Moment moment = new() { Friend = Identity, Time = Time };
