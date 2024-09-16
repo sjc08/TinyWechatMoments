@@ -52,9 +52,9 @@
                       VirtualizingStackPanel.ScrollUnit="Pixel">
             <ItemsControl.Template>
                 <ControlTemplate>
-                    <hc:ScrollViewer Padding="{TemplateBinding Control.Padding}" Focusable="False" IsInertiaEnabled="True">
+                    <ScrollViewer Padding="{TemplateBinding Control.Padding}" Focusable="False">
                         <ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}"/>
-                    </hc:ScrollViewer>
+                    </ScrollViewer>
                 </ControlTemplate>
             </ItemsControl.Template>
             <ItemsControl.ItemsPanel>
