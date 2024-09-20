@@ -16,12 +16,12 @@ namespace TinyWechatMoments
         {
             return Tryer.Try(() =>
             {
-                var hBitmap = GetHThumbnail(value.ToString()!);
-                var source = Tryer.Try(() => Imaging.CreateBitmapSourceFromHBitmap(
+                var hBitmap = GetHThumbnail((string)value);
+                var source = Imaging.CreateBitmapSourceFromHBitmap(
                     hBitmap,
                     IntPtr.Zero,
                     Int32Rect.Empty,
-                    BitmapSizeOptions.FromEmptyOptions()));
+                    BitmapSizeOptions.FromEmptyOptions());
                 DeleteObject(hBitmap);
                 return source;
             }, e => Growl.Error(e.Message))!;

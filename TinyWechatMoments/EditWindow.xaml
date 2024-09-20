@@ -11,7 +11,7 @@
                Style="{StaticResource WindowGlow}"
                Background="{DynamicResource RegionBrush}"
                ActiveGlowColor="{DynamicResource PrimaryColor}"
-               Title="发布" Height="450" Width="400"
+               Title="编辑" Height="450" Width="400"
                AllowDrop="True">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Drop">
