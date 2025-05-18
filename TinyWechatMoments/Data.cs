@@ -7,6 +7,8 @@ namespace TinyWechatMoments
     [ObservableObject]
     public partial class Data : JsonConfig
     {
+        public bool ShowWarnings { get; init; }
+
         [ObservableProperty]
         public ObservableCollection<Moment> moments =
         [
